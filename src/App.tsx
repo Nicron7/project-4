@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import './index.css'
-import Layout from './Components/Layout'
+import Layout from './components/Layout';
+import Filters from "./components/Filters";
 
 function App() {
 
@@ -8,9 +8,10 @@ function App() {
     <>
       <Layout>
         <h1 className="text-4xl font-bold text-white">Hello World</h1>
+         <Filters name={"All"} />
       </Layout>
     </>
   )
 }
 
-export default App
+export default App;
