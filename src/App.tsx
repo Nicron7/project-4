@@ -1,20 +1,18 @@
-import { useState } from "react";
-import { Button } from "./components/Button";
+import './index.css'
+import Layout from './components/Layout';
 import Filters from "./components/Filters";
 import { Counter } from "./components/Counter";
 
 function App() {
-  const [count, setCount] = useState(1);
 
   return (
-		<>
-      <Counter count={count}></Counter>
-			<Button text={"boton"} setCount={setCount}></Button>
-			<Button text={"boton"} setCount={setCount}></Button>
-			<Button text={"boton"} setCount={setCount}></Button>
-			<Filters name={"All"} />
-		</>
-	);
+    <>
+      <Layout>
+        <h1 className="text-4xl font-bold text-white">Hello World</h1>
+         <Filters name={"All"} />
+      </Layout>
+    </>
+  )
 }
 
 export default App;
