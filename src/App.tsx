@@ -5,13 +5,9 @@ import { Counter } from "./components/Counter";
 import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import { useCallback } from "react";
-
-interface Quote {
-  id: number;
-  quote: string;
-  author: string;
-  category: "Motivation" | "Success" | "Life" | "Wisdom";
-}
+import type { Quote } from "./components/Favorite/quote";
+import FavoriteList from "./components/Favorite/FavoriteList";
+import { AnimatePresence, motion } from "motion/react";
 
 const quotes: Quote[] = [
   // --- Motivation ---
@@ -124,11 +120,34 @@ function App() {
   const [count, setCount] = useState(0);
   const [randomQuote, setRandomQuote] = useState<Quote | null>(null);
   const [active, setActive] = useState("All");
+  const [favourites, setFavourites] = useState<Quote[]>(() => {
+    const stored = localStorage.getItem("favourites");
+    return stored ? JSON.parse(stored) : [];
+  });
 
   const filters = ["All", "Motivation", "Success", "Life", "Wisdom"];
 
   const handleCategoryChange = (category: string) => {
     setActive(category);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("favourites", JSON.stringify(favourites));
+  }, [favourites]);
+
+  const handleAddToFavourite = (quote: Quote) => {
+    setFavourites((prev) => {
+      if (prev.length === 5) {
+        return prev;
+      } else {
+        const isDuplicate = prev.some((fav) => fav.id === quote.id);
+        return isDuplicate ? prev : [...prev, quote];
+      }
+    });
+  };
+
+  const handleRemoveFavourite = (id: number) => {
+    setFavourites((prev) => prev.filter((fav) => fav.id !== id));
   };
 
   const pickRandomQuote = useCallback(() => {
@@ -155,12 +174,18 @@ function App() {
 
   return (
     <Layout>
+      <FavoriteList
+        favourites={favourites}
+        onRemove={handleRemoveFavourite}
+        isEmpty={favourites.length === 0}
+        isFull={favourites.length === 5}
+      />
       <div className="flex flex-col items-center">
-        <h1 className="text-5xl font-bold text-indigo-50 mt-10 mb-2">
+        <h1 className="text-4xl md:text-5xl font-bold text-indigo-50 mt-25 md:mt-10 mb-2">
           Quotes of the Day
         </h1>
         <p className="mb-10 text-indigo-300">Discover your daily motivation</p>
-        <div className="flex gap-2 mb-4">
+        <div className="flex flex-wrap gap-2 mb-4 justify-center">
           {filters.map((filter) => (
             <Filters
               key={filter}
@@ -172,14 +197,30 @@ function App() {
         </div>
         <Counter count={count} />
 
-        {randomQuote && (
-          <Card
-            sentence={randomQuote.quote}
-            author={randomQuote.author}
-            setCount={setCount}
-            onNewQuote={pickRandomQuote}
-          />
-        )}
+        <AnimatePresence>
+          <motion.div>
+            {randomQuote && (
+              <motion.div
+                key={randomQuote?.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Card
+                  quote={randomQuote.quote}
+                  author={randomQuote.author}
+                  id={randomQuote.id}
+                  category={randomQuote.category}
+                  setCount={setCount}
+                  onNewQuote={pickRandomQuote}
+                  onAddToFavourite={handleAddToFavourite}
+                  isFull={favourites.length === 5}
+                />
+              </motion.div>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </Layout>
   );
