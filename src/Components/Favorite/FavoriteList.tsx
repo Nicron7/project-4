@@ -11,7 +11,7 @@ interface Quote {
 }
 
 export default function FavoriteList() {
-	const [closed, setClosed] = useState(false);
+	const [closed, setClosed] = useState(true);
 	const [favorites, setFavorites] = useState<Quote[]>([]);
 
   useEffect(() => {
