@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function FavoriteList() {
   return (
     <aside className="bg-indigo-900 p-4 rounded-lg">

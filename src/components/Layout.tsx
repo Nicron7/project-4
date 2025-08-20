@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import FavoriteList from "./FavoriteList";
 
 interface LayoutProps {
@@ -8,7 +8,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <main className="bg-indigo-950 w-full min-h-screen p-4">
-        <FavoriteList />
+      <FavoriteList />
       {children}
     </main>
   );
