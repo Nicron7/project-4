@@ -176,12 +176,10 @@ function App() {
           <Card
             sentence={randomQuote.quote}
             author={randomQuote.author}
+            setCount={setCount}
+            onNewQuote={pickRandomQuote}
           />
         )}
-       <Button 
-          setCount={setCount} 
-          onNewQuote={pickRandomQuote}
-        />
       </div>
     </Layout>
   );
