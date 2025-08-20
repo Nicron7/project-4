@@ -143,7 +143,14 @@ function App() {
     }
   }, [active]);
 
-  useEffect(() => {
+    
+  useEffect(() => { 
+    setCount (0)
+    pickRandomQuote();
+  }, []);
+
+  useEffect(() => { 
+    setCount (c => c + 1)
     pickRandomQuote();
   }, [active, pickRandomQuote]);
 
@@ -172,7 +179,6 @@ function App() {
             author={randomQuote.author}
           />
         )}
-        <Button setCount={setCount} />
       </div>
     </Layout>
   );
