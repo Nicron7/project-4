@@ -1,7 +1,18 @@
-import { useState } from "react";
+import "./index.css";
+import Layout from "./components/Layout";
 import Filters from "./components/Filters";
+import { Counter } from "./components/Counter";
+import { Button } from "./components/Button";
+import { useEffect, useState } from "react";
+import Card from "./components/Card";
 
-const quotes = [
+interface Quote {
+  quote: string;
+  author: string;
+  category: string;
+}
+
+const quotes: Quote[] = [
   // --- Motivation ---
   {
     quote:
@@ -93,27 +104,67 @@ const quotes = [
 ];
 
 function App() {
+  const [count, setCount] = useState(0);
+  const [quote, setQuote] = useState(quotes[0]);
+  const [randomQuote, setRandomQuote] = useState(null);
+  const [category, setCategory] = useState("Motivation");
   const [active, setActive] = useState("All");
-  const handleClick = (name: string) => {
-    setActive(name);
-  };
+
+  const filters = ["All", "Motivation", "Success", "Life", "Wisdom"];
+
   const filteredQuotes =
     active === "All" ? quotes : quotes.filter((q) => q.category === active);
 
-  const filters = ["All", "Motivation", "Success", "Life", "Wisdom"];
+  const singleQuote = filteredQuotes[0];
+
+  const handleCategoryChange = (category: string) => {
+    setActive(category);
+  };
+
+  const pickRandomQuote = () => {
+    const filtered =
+      active === "All" ? quotes : quotes.filter((q) => q.category === active);
+
+    if (filtered.length > 0) {
+      const random = filtered[Math.floor(Math.random() * filtered.length)];
+      setRandomQuote(random);
+    } else {
+      setRandomQuote(null);
+    }
+  };
+
+  useEffect(() => {
+    pickRandomQuote();
+  }, [active]);
+
   return (
-    <>
-      <div className="flex gap-2">
-        {filters.map((name) => (
-          <Filters
-            key={name}
-            name={name}
-            active={name === active}
-            onClick={() => handleClick(name)}
+    <Layout>
+      <div className="flex flex-col items-center">
+        <h1 className="text-5xl font-bold text-indigo-50 mt-10">
+          Quotes of the Day
+        </h1>
+        <p className="mb-10 text-indigo-300">Discover your daily motivation</p>
+        <div className="flex gap-2 mb-4">
+          {filters.map((filter) => (
+            <Filters
+              key={filter}
+              name={filter}
+              active={filter === active}
+              onClick={() => handleCategoryChange(filter)}
+            />
+          ))}
+        </div>
+        <Counter count={count} />
+
+        {randomQuote && (
+          <Card
+            sentence={randomQuote.quote}
+            author={randomQuote.quote}
           />
-        ))}
+        )}
+        <Button setCount={setCount} />
       </div>
-    </>
+    </Layout>
   );
 }
 
