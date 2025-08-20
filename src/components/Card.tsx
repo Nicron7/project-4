@@ -11,6 +11,7 @@ type CardProps = {
   setCount: React.Dispatch<React.SetStateAction<number>>;
   onNewQuote: () => void;
   onRemove: (id: number) => void;
+  isFavourite: boolean;
   onAddToFavourite: (quote: {
     quote: string;
     author: string;
@@ -27,8 +28,17 @@ const Card: React.FC<CardProps> = ({
   setCount,
   onNewQuote,
   onAddToFavourite,
+  onRemove,
+  isFavourite,
   isFull,
 }) => {
+  const handleFavouriteClick = () => {
+    if (isFavourite) {
+      onRemove(id);
+    } else {
+      onAddToFavourite({ quote, author, category, id });
+    }
+  };
   return (
     <div className="card bg-indigo-900 p-8 text-center shadow-lg w-auto mx-auto md:w-190 max-w-[95%]">
       <motion.div
@@ -43,9 +53,8 @@ const Card: React.FC<CardProps> = ({
               exit={{ opacity: 0 }}
             >
               <AddToFavourite
-                onClick={() =>
-                  onAddToFavourite({ quote, author, category, id })
-                }
+                onClick={handleFavouriteClick}
+                isFavourite={isFavourite}
               />
             </motion.div>
           )}

@@ -21,12 +21,12 @@ export default function ButtonFavorite({
       {isFull ? (
         <Icon
           icon="mdi:cards-heart"
-          className="text-indigo-900 text-xl sm:text-lg"
+          className="text-indigo-900 text-base sm:text-lg"
         />
       ) : (
         <Icon
           icon="mdi:cards-heart-outline"
-          className="text-indigo-900 text-xl sm:text-lg"
+          className="text-indigo-900 text-base sm:text-lg"
         />
       )}
       <span className="hidden text-sm md:text-base sm:inline ml-2">

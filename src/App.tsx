@@ -217,6 +217,9 @@ function App() {
                   onAddToFavourite={handleAddToFavourite}
                   isFull={favourites.length === 5}
                   onRemove={handleRemoveFavourite}
+                  isFavourite={favourites.some(
+                    (fav) => fav.id === randomQuote.id
+                  )}
                 />
               </motion.div>
             )}
