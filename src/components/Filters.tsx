@@ -1,7 +1,24 @@
-export default function Filters({ name }: { name: string }) {
+interface FiltersProps {
+  name: string;
+  active: boolean;
+  onClick: () => void;
+}
+
+export default function Filters({
+  name,
+  active = false,
+  onClick,
+}: FiltersProps) {
   return (
-    <div>
-      <p className="py-2 px-4 text-indigo-200">{name}</p>
-    </div>
+    <button
+      onClick={onClick}
+      className={`font-medium inline-block px-4 py-2 rounded-lg cursor-pointer transition-all ${
+        active
+          ? "bg-indigo-100 text-indigo-700"
+          : "text-indigo-100 hover:bg-indigo-100 hover:text-indigo-700"
+      }`}
+    >
+      {name}
+    </button>
   );
 }
