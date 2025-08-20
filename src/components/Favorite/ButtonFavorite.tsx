@@ -14,19 +14,19 @@ export default function ButtonFavorite({
   return (
     <button
       className={`flex items-center justify-around cursor-pointer bg-indigo-200 border border-indigo-600 text-indigo-900 rounded-sm px-4 py-2 transition-all hover:bg-indigo-50 ${
-        isFull ? "bg-indigo-400 hover:bg-indigo-200 border-indigo-800" : ""
+        isFull ? "bg-indigo-400 hover:bg-indigo-300 border-indigo-800" : ""
       }`}
       onClick={handleClick}
     >
       {isFull ? (
         <Icon
           icon="mdi:cards-heart"
-          className="text-indigo-900 text-2xl sm:text-lg"
+          className="text-indigo-900 text-xl sm:text-lg"
         />
       ) : (
         <Icon
           icon="mdi:cards-heart-outline"
-          className="text-indigo-900 text-2xl sm:text-lg"
+          className="text-indigo-900 text-xl sm:text-lg"
         />
       )}
       <span className="hidden text-sm md:text-base sm:inline ml-2">

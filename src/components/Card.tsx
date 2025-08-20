@@ -10,6 +10,7 @@ type CardProps = {
   isFull: boolean;
   setCount: React.Dispatch<React.SetStateAction<number>>;
   onNewQuote: () => void;
+  onRemove: (id: number) => void;
   onAddToFavourite: (quote: {
     quote: string;
     author: string;

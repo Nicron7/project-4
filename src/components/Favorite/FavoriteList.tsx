@@ -68,8 +68,7 @@ export default function FavoriteList({
               <div className="flex flex-col items-center justify-center">
                 <Icon
                   icon="mdi:heart-off-outline"
-                  width="80"
-                  className="text-indigo-300 mt-5"
+                  className="text-indigo-300 mt-5 text-[90px]"
                 />
                 <h3 className="text-indigo-100 text-lg text-center mt-5 mb-3">
                   No favourite quotes yet.

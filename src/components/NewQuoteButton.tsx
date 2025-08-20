@@ -1,11 +1,7 @@
 // src/components/NewQuoteButton.tsx
 
 const NewQuoteButton = () => {
-  return (
-    <button className="new-quote-button">
-      New Quote
-    </button>
-  );
+  return <button className="">New Quote</button>;
 };
 
 export default NewQuoteButton;

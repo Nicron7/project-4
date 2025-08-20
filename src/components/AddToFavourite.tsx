@@ -8,7 +8,7 @@ export default function AddToFavourite({ onClick }: AddToFavouriteProps) {
   return (
     <button
       onClick={onClick}
-      className="flex items-center justify-around bg-indigo-200 text-indigo-900 rounded-sm px-4 py-2 cursor-pointer transition-all hover:bg-indigo-50"
+      className="flex items-center justify-around bg-indigo-200 text-indigo-900 rounded-sm px-4 py-2 cursor-pointer transition-all hover:bg-indigo-50 active:bg-indigo-400"
     >
       <Icon
         icon="mdi:cards-heart-outline"
