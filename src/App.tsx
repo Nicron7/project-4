@@ -2,7 +2,6 @@ import "./index.css";
 import Layout from "./components/Layout";
 import Filters from "./components/Filters";
 import { Counter } from "./components/Counter";
-import { Button } from "./components/Button";
 import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import { useCallback } from "react";
@@ -144,14 +143,13 @@ function App() {
     }
   }, [active]);
 
-    
-  useEffect(() => { 
-    setCount (0)
+  useEffect(() => {
+    setCount(0);
     pickRandomQuote();
   }, []);
 
-  useEffect(() => { 
-    setCount (c => c + 1)
+  useEffect(() => {
+    setCount((c) => c + 1);
     pickRandomQuote();
   }, [active, pickRandomQuote]);
 
