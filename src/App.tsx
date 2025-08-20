@@ -5,6 +5,7 @@ import { Counter } from "./components/Counter";
 import { Button } from "./components/Button";
 import { useEffect, useState } from "react";
 import Card from "./components/Card";
+import { useCallback } from "react";
 
 interface Quote {
   quote: string;
@@ -105,23 +106,16 @@ const quotes: Quote[] = [
 
 function App() {
   const [count, setCount] = useState(0);
-  const [quote, setQuote] = useState(quotes[0]);
   const [randomQuote, setRandomQuote] = useState(null);
-  const [category, setCategory] = useState("Motivation");
   const [active, setActive] = useState("All");
 
   const filters = ["All", "Motivation", "Success", "Life", "Wisdom"];
-
-  const filteredQuotes =
-    active === "All" ? quotes : quotes.filter((q) => q.category === active);
-
-  const singleQuote = filteredQuotes[0];
 
   const handleCategoryChange = (category: string) => {
     setActive(category);
   };
 
-  const pickRandomQuote = () => {
+  const pickRandomQuote = useCallback(() => {
     const filtered =
       active === "All" ? quotes : quotes.filter((q) => q.category === active);
 
@@ -131,11 +125,11 @@ function App() {
     } else {
       setRandomQuote(null);
     }
-  };
+  }, [active]);
 
   useEffect(() => {
     pickRandomQuote();
-  }, [active]);
+  }, [active, pickRandomQuote]);
 
   return (
     <Layout>
@@ -159,7 +153,7 @@ function App() {
         {randomQuote && (
           <Card
             sentence={randomQuote.quote}
-            author={randomQuote.quote}
+            author={randomQuote.author}
           />
         )}
         <Button setCount={setCount} />
