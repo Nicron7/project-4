@@ -21,12 +21,12 @@ export default function AddToFavourite({
       {isFavourite ? (
         <Icon
           icon="mdi:heart-off"
-          className="text-indigo-950 text-base sm:text-lg"
+          className="text-indigo-950 text-2xl sm:text-lg"
         />
       ) : (
         <Icon
           icon="mdi:cards-heart-outline"
-          className="text-indigo-900 text-base sm:text-lg"
+          className="text-indigo-900 text-2xl sm:text-lg"
         />
       )}
       <span className="hidden sm:inline ml-2">
